@@ -14,7 +14,6 @@
 using namespace std;
 
 int main() {
-
 	InsultGenerator ig;
 	vector<string> insults;
 	clock_t start=0, finish=0;
