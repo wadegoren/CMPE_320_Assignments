@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <algorithm>
 #include <random>
 
 using namespace std;
@@ -43,26 +44,43 @@ int InsultGenerator::randomNumberGenerator() {
     return rand() % 50;
 }
 
-//vector<string> InsultGenerator::generate(int numOfInsults) {
-//    cout << numOfInsults;
-//}
-
-vector<string> InsultGenerator::generate(const int& numOfInsults) {
-    cout << numOfInsults;
+vector<string> InsultGenerator::generate(const int& numberOfInsults) {
     string insult1;
     vector<string> insults2;
-    for (int i = 0; i < numOfInsults; i++){
+    if (numberOfInsults > 10000){
+        throw NumInsultsOutOfBounds("Invalid Request: The number of insults is over 10,000");
+    }
+    if (numberOfInsults < 0){
+        throw NumInsultsOutOfBounds("Invalid Request: The number of insults is less than 0");
+    }
+    for (int i = 0; i < numberOfInsults; i++){
         insult1 = talkToMe();
-        insults2[i] = insult1;
-        cout << insults2[i] << '\n';
+        insults2.push_back(insult1);
+//        cout << insults2[i] << '\n';
     }
     return insults2;
 }
 
-
-FileException::FileException(const string &errorMessage){}
-
-string FileException::what() {
-    return {"errorrrrrr"};
+bool InsultGenerator::compareFunc(string one, string two){
+    return one<two;
 }
 
+void InsultGenerator::generateAndSave(const string& fileName, const int& numberInsults) {
+    if (numberInsults > 10000 || numberInsults < 0){
+        ofstream file(fileName);
+        throw NumInsultsOutOfBounds("Invalid Request: The number of insults is invalid");
+    }
+    vector<string> insultsFull = generate(numberInsults);
+    sort(insultsFull.begin(), insultsFull.end());
+    ofstream file(fileName);
+    for (auto & i : insultsFull){
+        file << i << endl;
+    }
+    file.close();
+}
+
+FileException::FileException(const string& errorMessage) : errorMessage(errorMessage) {}
+string& FileException::what() {return errorMessage;}
+
+NumInsultsOutOfBounds::NumInsultsOutOfBounds(const string &errorMessage) : errorMessage(errorMessage) {}
+string& NumInsultsOutOfBounds::what() {return errorMessage;}
