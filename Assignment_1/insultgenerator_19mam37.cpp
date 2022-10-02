@@ -6,19 +6,19 @@
 #include <vector>
 #include <time.h>
 #include <algorithm>
-#include <random>
 
 using namespace std;
 
+//Initializing the insults and putting them into a vector from a file
 void InsultGenerator::initialize(){
     srand(time(NULL));
-    ifstream insultFile ("/Users/matthewmaceachern/Downloads/CMPE_320_Assignments/Assignment_1/InsultsSource.txt");
+    ifstream insultFile ("InsultsSource.txt"); //Creating the file to be used for writing
 
     if (insultFile.is_open()){
         string fileLine;
         while (getline(insultFile, fileLine)){  //Obtains each line of the file
             istringstream iss(fileLine);
-            vector <string> allColumns; //Must be declared here to ensure that it fills correctly
+            vector <string> allColumns;
             string singleString;
             while (getline(iss, singleString, '\t')){    //Split each line based on the tab delimiter
                 allColumns.push_back(singleString); //allColumns vector is holding all the individual lines, each as a vector space
@@ -30,6 +30,7 @@ void InsultGenerator::initialize(){
     }
 }
 
+//Randomly generating a number and accessing the corresponding location in the vector
 string InsultGenerator::talkToMe() {
     int num1 = randomNumberGenerator();
     string firstInsult = columnOne[num1];
@@ -40,10 +41,12 @@ string InsultGenerator::talkToMe() {
     return firstInsult + " " + secondInsult + " " + thirdInsult;
 }
 
+//Generating a random number
 int InsultGenerator::randomNumberGenerator() {
     return rand() % 50;
 }
 
+//Testing the upper and lower bounds of insult quantity
 vector<string> InsultGenerator::generate(const int& numberOfInsults) {
     string insult1;
     vector<string> insults2;
@@ -56,15 +59,11 @@ vector<string> InsultGenerator::generate(const int& numberOfInsults) {
     for (int i = 0; i < numberOfInsults; i++){
         insult1 = talkToMe();
         insults2.push_back(insult1);
-//        cout << insults2[i] << '\n';
     }
     return insults2;
 }
 
-bool InsultGenerator::compareFunc(string one, string two){
-    return one<two;
-}
-
+//Saving the insults to a file
 void InsultGenerator::generateAndSave(const string& fileName, const int& numberInsults) {
     if (numberInsults > 10000 || numberInsults < 0){
         ofstream file(fileName);
@@ -79,8 +78,10 @@ void InsultGenerator::generateAndSave(const string& fileName, const int& numberI
     file.close();
 }
 
+//Throwing file exception error
 FileException::FileException(const string& errorMessage) : errorMessage(errorMessage) {}
 string& FileException::what() {return errorMessage;}
 
+//Throwing insult quantity error
 NumInsultsOutOfBounds::NumInsultsOutOfBounds(const string &errorMessage) : errorMessage(errorMessage) {}
 string& NumInsultsOutOfBounds::what() {return errorMessage;}
