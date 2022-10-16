@@ -1,0 +1,8 @@
+//
+// Created by Matthew MacEachern on 10/16/22.
+//
+
+#ifndef ASSIGNMENT_2_FRACTION_19MAM37_H
+#define ASSIGNMENT_2_FRACTION_19MAM37_H
+
+#endif //ASSIGNMENT_2_FRACTION_19MAM37_H
