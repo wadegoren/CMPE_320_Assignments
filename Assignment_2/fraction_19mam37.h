@@ -10,14 +10,29 @@ using namespace std;
 
 class Fraction {
     public:
-        int numerator();
-        int denominator();
+        const int& getNumerator() const;
+        const int& getDenominator() const;
         Fraction(int numerators = 0, int denominators = 1);
-        Fraction(int numFrac);
+//        Fraction(int numFrac);
+        Fraction& operator++();
+        Fraction& operator-();
+        Fraction operator++(int);
 //    private:
         int numeratorr;
         int denominatorr;
 };
+
+Fraction operator+(const Fraction& leftH, const Fraction& rightH);
+
+Fraction operator-(const Fraction& leftH, const Fraction& rightH);
+
+Fraction operator*(const Fraction& leftH, const Fraction& rightH);
+
+Fraction operator/(const Fraction& leftH, const Fraction& rightH);
+
+ostream& operator<<(ostream& out, const Fraction& fraction);
+
+istream& operator<<(istream& out, const Fraction fraction);
 
 class FractionException : public exception {
     public:
