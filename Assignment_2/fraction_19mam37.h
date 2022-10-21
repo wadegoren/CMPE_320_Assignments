@@ -10,18 +10,24 @@ using namespace std;
 
 class Fraction {
     public:
-        const int& numerator() const;
-        const int& denominator() const;
-        Fraction(int numerators = 0, int denominators = 1);
-        int GCD(const int& a, const int& b);
-        Fraction& operator++();
-        Fraction& operator-();
-        Fraction operator++(int);
-        Fraction& operator+=(const Fraction& rightH);
         int numeratorr;
         int denominatorr;
-        friend ostream& operator<<(ostream& out, const Fraction& fraction);
 
+        const int& numerator() const;
+        const int& denominator() const;
+
+        Fraction(int numerators = 0, int denominators = 1); //Constructor set to a default value of numerator 0 and denominator 1
+
+        int GCD(const int& a, const int& b);    //Greatest common denominator function
+
+        //Unary Operators
+        Fraction& operator++(); //Pre-increment
+        Fraction& operator-();  //Negation
+        Fraction operator++(int);   //Post-increment
+
+        Fraction& operator+=(const Fraction& rightH);
+
+        friend ostream& operator<<(ostream& out, const Fraction& fraction);
         friend istream& operator<<(istream& out, const Fraction fraction);
 };
 
