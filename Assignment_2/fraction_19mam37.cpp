@@ -11,7 +11,7 @@ Fraction::Fraction(int numerator, int denominator) {
     if (denominator == 0) {
         throw FractionException("Denominator equals 0");
     }
-    if (numeratorr < 0 && denominatorr < 0) { //if both negative
+    if (numeratorr < 0 && denominatorr < 0) { //both negative
         numeratorr = -numeratorr;
         denominatorr = -denominatorr;
     } else if (numeratorr >= 0 && denominatorr < 0){
@@ -67,12 +67,12 @@ Fraction operator/(const Fraction& leftH, const Fraction& rightH){
     return Fraction(numer, denom);
 }
 
-Fraction& Fraction::operator++(){   //pre-increment
+Fraction& Fraction::operator++(){   //Pre-increment
     numeratorr = denominator() + numerator();
     return *this;
 }
 
-Fraction Fraction::operator++(int unused) { //post-increment
+Fraction Fraction::operator++(int unused) { //Post-increment
     Fraction clone(numeratorr, denominatorr);
     numeratorr = denominator() + numerator();
     return clone;
