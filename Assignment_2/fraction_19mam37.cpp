@@ -14,7 +14,7 @@ Fraction::Fraction(int numerator, int denominator) {
     if (numeratorr < 0 && denominatorr < 0) { //both negative
         numeratorr = -numeratorr;
         denominatorr = -denominatorr;
-    } else if (numeratorr >= 0 && denominatorr < 0){
+    } else if (numeratorr >= 0 && denominatorr < 0){    //denominator negative and numerator non-negative
         numeratorr = -numeratorr;
         denominatorr = -denominatorr;
     }
