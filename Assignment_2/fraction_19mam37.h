@@ -6,6 +6,8 @@
 #define ASSIGNMENT_2_FRACTION_19MAM37_H
 #include <iostream>
 #include <exception>
+#include <vector>
+#include <sstream>
 using namespace std;
 
 class Fraction {
@@ -17,6 +19,8 @@ class Fraction {
         //Accessor methods
         const int& numerator() const;
         const int& denominator() const;
+
+        vector<string> numerAndDenom;
 
         Fraction(int numerators = 0, int denominators = 1); //Constructor set to a default value of numerator 0 and denominator 1
 
@@ -30,7 +34,7 @@ class Fraction {
         //Binary Operator Overloading
         Fraction& operator+=(const Fraction& rightH);
         friend ostream& operator<<(ostream& out, const Fraction& fraction);
-        friend istream& operator<<(istream& out, const Fraction fraction);
+        friend istream& operator>>(istream& out, Fraction& fraction);
 };
 
 //Exception Class

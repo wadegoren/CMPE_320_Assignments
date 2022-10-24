@@ -1,8 +1,6 @@
 //
 // Created by Matthew MacEachern on 10/16/22.
 //
-#include <iostream>
-#include<cmath>
 #include "fraction_19mam37.h"
 
 Fraction::Fraction(int numerator, int denominator) {
@@ -38,9 +36,27 @@ ostream& operator<<(ostream& out, const Fraction& fraction){
     return out;
 }
 
-istream& operator<<(istream& out, const Fraction& fraction){
-    out << fraction.numeratorr  << '/' << fraction.denominatorr;
-    return out;
+istream& operator>>(istream& input, Fraction& fraction){
+    vector<string> numerAndDenom;
+    string input_value;
+    input >> input_value;
+
+    stringstream ss(input_value);
+    string numberS;
+
+    while(getline(ss, numberS, '/')){
+        numerAndDenom.push_back(numberS);
+    }
+    if (numerAndDenom.size() < 2){
+        fraction.numeratorr = stoi(input_value);
+        fraction.denominatorr = 1;
+    } else if(stoi(numerAndDenom[1]) == 0){
+        throw FractionException("Illegal: Fraction has a Denominator of Zero");
+    } else{
+        fraction.numeratorr = stoi(numerAndDenom[0]);
+        fraction.denominatorr = stoi(numerAndDenom[1]);
+    }
+    return input;
 }
 
 Fraction operator+(const Fraction& leftH, const Fraction& rightH){
@@ -51,7 +67,7 @@ Fraction operator+(const Fraction& leftH, const Fraction& rightH){
 
 Fraction operator-(const Fraction& leftH, const Fraction& rightH){
     int numer = (leftH.numerator() * rightH.denominator()) - (rightH.numerator() * leftH.denominator());
-    int denom = leftH.denominator() * rightH.numerator();
+    int denom = leftH.denominator() * rightH.denominator();
     return Fraction(numer, denom);
 }
 
@@ -127,7 +143,7 @@ bool operator!=(const Fraction& leftH, const Fraction& rightH){
 }
 
 Fraction& Fraction::operator+=(const Fraction& rightH){
-    numeratorr = (numeratorr * rightH.numeratorr) + (rightH.numeratorr * denominatorr);
+    numeratorr = (numeratorr * rightH.denominatorr) + (rightH.numeratorr * denominatorr); //FIX THIS LINE**************************************
     denominatorr = denominatorr * rightH.denominatorr;
     return *this;
 }
